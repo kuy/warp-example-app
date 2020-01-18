@@ -1,0 +1,10 @@
+[package]
+name = "warp-example-app"
+version = "0.0.0"
+authors = ["Yuki Kodama <endflow.net@gmail.com>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+warp = "0.2"
+tokio = { version = "0.2", features = ["macros"] }
