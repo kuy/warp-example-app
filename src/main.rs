@@ -6,7 +6,11 @@ use diesel::r2d2::{self, ConnectionManager};
 use serde::{Deserialize, Serialize};
 use std::error::Error;
 use tera::{Context, Tera};
-use warp::{self, filters::BoxedFilter, path, Filter, Rejection, Reply};
+use warp::{self, filters::BoxedFilter, path, Filter};
+use warp::{
+    reject::{custom, Reject},
+    reply, Rejection, Reply,
+};
 
 mod schema;
 
@@ -31,11 +35,19 @@ struct Task {
     pub done: bool,
 }
 
-async fn hello(name: String, tmpl: Tera) -> Result<impl Reply, Rejection> {
+#[derive(Debug)]
+struct TemplateError;
+impl Reject for TemplateError {}
+
+fn render(name: &str, tmpl: &Tera, ctx: &Context) -> Result<String, Rejection> {
+    tmpl.render(name, &ctx).or(Err(custom(TemplateError)))
+}
+
+async fn hello(name: String, tmpl: Tera) -> Result<Box<dyn Reply>, Rejection> {
     let mut ctx = Context::new();
     ctx.insert("name", &name);
-    let payload = tmpl.render("hello.html", &ctx).unwrap();
-    Ok(warp::reply::html(payload))
+    let payload = render("hello.html", &tmpl, &ctx)?;
+    Ok(Box::new(reply::html(payload)))
 }
 
 async fn tasks(pool: Pool, tmpl: Tera) -> Result<impl Reply, Rejection> {
@@ -46,8 +58,8 @@ async fn tasks(pool: Pool, tmpl: Tera) -> Result<impl Reply, Rejection> {
         Ok(items) => ctx.insert("tasks", &items),
         _ => (),
     }
-    let payload = tmpl.render("tasks.html", &ctx).unwrap();
-    Ok(warp::reply::html(payload))
+    let payload = render("tasks.html", &tmpl, &ctx)?;
+    Ok(reply::html(payload))
 }
 
 #[tokio::main]
