@@ -1,12 +1,18 @@
-## Web app example: warp + diesel + tera
+Example web app written in Rust with warp + diesel + tera.
 
-### Requirements
+## Stack
 
-- Rust (1.40 or later)
-- Diesel CLI (1.4.0)
-- Docker (2.1 or later)
+- [warp](https://github.com/seanmonstar/warp): Web Application Framework
+- [diesel](https://github.com/diesel-rs/diesel): ORM (MySQL)
+- [tera](https://github.com/Keats/tera): Template Engine
 
-### Getting Started
+## Requirements
+
+- [Rust](https://www.rust-lang.org/tools/install) (1.40 or later)
+- [Diesel CLI](http://diesel.rs/guides/getting-started/) (1.4.0)
+- [Docker](https://www.docker.com/get-started) (2.1 or later)
+
+## Getting Started
 
 1. Build and start MySQL in Docker
 
@@ -46,3 +52,11 @@ cargo run
 
 - List of tasks: `http://localhost:3030`
 - Greetings: `http://localhost:3030/hello/yourname`
+
+## License
+
+MIT
+
+## Author
+
+Yuki Kodama / [@kuy](https://twitter.com/kuy)
