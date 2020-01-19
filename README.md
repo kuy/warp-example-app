@@ -6,6 +6,11 @@ Example web app written in Rust with warp + diesel + tera.
 - [diesel](https://github.com/diesel-rs/diesel): ORM (MySQL)
 - [tera](https://github.com/Keats/tera): Template Engine
 
+## Implemented [Filters](https://docs.rs/warp/latest/warp/trait.Filter.html)
+
+- [`create_template_filter`](https://github.com/kuy/warp-example-app/blob/master/src/main.rs#L17-L20): Prepare tera instance
+- [`create_database_filter`](https://github.com/kuy/warp-example-app/blob/master/src/main.rs#L24-L29): Prepare connection pool of MySQL
+
 ## Requirements
 
 - [Rust](https://www.rust-lang.org/tools/install) (1.40 or later)
