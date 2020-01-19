@@ -1,2 +1,19 @@
-/target
+target
 **/*.rs.bk
+.env
+node_modules
+assets/style.css
+assets/style.min.css
+frontend/pkg
+
+# Backup files
+.DS_Store
+thumbs.db
+*~
+*.rs.bk
+*.swp
+
+# IDE / Editor files
+*.iml
+.idea
+.vscode
