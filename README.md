@@ -1,5 +1,3 @@
-Example web app written in Rust with warp + diesel + tera.
-
 ## Stack
 
 - [warp](https://github.com/seanmonstar/warp): Web Application Framework
